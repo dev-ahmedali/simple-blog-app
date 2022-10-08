@@ -4,7 +4,7 @@ const initialState = {
   all_post: posts,
   filtered_Post: posts,
   searchText: '',
-  filterBy: [],
+  filterBy: {},
 };
 
 export default initialState;
