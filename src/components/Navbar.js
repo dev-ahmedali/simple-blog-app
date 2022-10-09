@@ -8,8 +8,8 @@ export default function Navbar() {
     <a href="index.html">
         <img
             className="h-10"
-            src="./assets/lws.svg"
-            alt="Learn with Sumit"
+            src="./assets/images/lws.svg"
+            alt=""
         />
     </a>
 </div>

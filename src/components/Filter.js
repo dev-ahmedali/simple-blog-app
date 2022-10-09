@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { clearFilter } from '../reudx/posts/actions'
 
 export default function Filter({name, value}) {
     const dispatch = useDispatch()
@@ -12,7 +13,7 @@ export default function Filter({name, value}) {
         </span>
          </p>
          <button
-        onClick={() => dispatch()}
+        onClick={() => dispatch(clearFilter())}
         className="px-4 py-1 bg-red-400 text-white rounded-md capitalize"
       >  clear filter
       </button>
