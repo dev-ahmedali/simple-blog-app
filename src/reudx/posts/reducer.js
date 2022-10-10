@@ -1,52 +1,52 @@
-import {
-  CLEAR_FILTER,
-  CLEAR_SEARCH,
-  UPDATE_FILTER,
-  UPDATE_SEARCH,
-} from './actionTypes';
 import initialState from './initialState';
+// import action types
+import {
+  UPDATE_FILTER,
+  CLEAR_FILTER,
+  UPDATE_SEARCH_TEXT,
+  CLEAR_SEARCH_TEXT,
+} from './actionTypes';
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    // Update filter
     case UPDATE_FILTER:
       const { name, value } = action.payload;
-      let updatePosts = [...state.all_post];
+      let newPosts = [...state.all_post];
       let filterBy = {};
       filterBy[name] = value;
       if (name === 'author') {
-        updatePosts = updatePosts.filter((post) => post.author.id === value.id);
-        filterBy[name] = value;
+        newPosts = newPosts.filter((post) => post.author.id === value.id);
+        filterBy[name] = value.name;
       } else if (name === 'search') {
-        updatePosts = updatePosts.filter((post) =>
+        newPosts = newPosts.filter((post) =>
           post.title.toLowerCase().includes(value.toLowerCase())
         );
       } else {
-        updatePosts = updatePosts.filter((post) => post[name] === value);
+        newPosts = newPosts.filter((post) => post[name] === value);
       }
 
       return {
         ...state,
         filterBy,
-        filtered_Post: updatePosts,
+        filtered_post: newPosts,
       };
-
-    case UPDATE_SEARCH:
+    // Update Search
+    case UPDATE_SEARCH_TEXT:
       return {
         ...state,
         searchText: action.payload,
       };
-
-    case CLEAR_SEARCH:
-      return {
-        ...state,
-        searchText: '',
-      };
+    // Clear Search Text (For - When another filter happen)
+    case CLEAR_SEARCH_TEXT:
+      return { ...state, searchText: '' };
+    // Clear Filter
     case CLEAR_FILTER:
       return {
         ...state,
-        filterBy,
+        filterBy: {},
         searchText: '',
-        filtered_Post: state.all_post,
+        filtered_post: state.all_post,
       };
     default:
       return state;
@@ -54,3 +54,4 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
+

@@ -1,20 +1,21 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { clearSearch, updateFilter } from '../reudx/posts/actions';
+import { clearSearchText, updateFilter } from '../reudx/posts/actions';
 const Post = ({ post }) => {
-  const { title, img, author, category, postedAt, readTime } = post;
+  const { title, image, author, category, postedAt, readTime } = post;
   const searchText = useSelector((state) => state.searchText);
   const dispatch = useDispatch();
 
+  // handle update filter
   const handleUpdateFilter = ({ name, value }) => {
     if (searchText) {
-      dispatch(clearSearch());
+      dispatch(clearSearchText());
     }
     dispatch(updateFilter({ name, value }));
   };
   return (
     <div className="flex flex-col rounded-lg shadow-lg overflow-hidden">
       <div className="flex-shring-0">
-        <img src={img} alt={title} className="w-full object-cover" />
+        <img src={image} alt={title} className="w-full object-cover" />
         <div className="flex-1 bg-white p-6 flex flex-col justify-between">
           <div className="flex-1">
             <p
@@ -34,9 +35,9 @@ const Post = ({ post }) => {
           <div className="mt-6 flex items-center">
             <div className="flex-shrink-0 cursor-pointer">
               <img
-                src={author.avatar}
+                src={author.profile}
                 alt={author.name}
-                className="h-10 w-10 rounded-full"
+                className="h-10 w-10 rounded-full object-cover"
                 onClick={() =>
                   handleUpdateFilter({ name: 'author', value: author })
                 }
